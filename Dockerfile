@@ -10,8 +10,5 @@ COPY package.json .
 # Run npm install to add packages
 RUN npm install
 
-# BEST PRACTICE: Change ownership of all files in /data to the node user
-RUN chown -R node:node /data
-
 # Switch back to the non-privileged 'node' user that n8n runs as
 USER node
