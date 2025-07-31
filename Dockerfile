@@ -1,6 +1,12 @@
 FROM n8nio/n8n:latest
 
-WORKDIR /data
+# WORKDIR /data
 
 # RUN npm install cheerio axios moment
-RUN npm install @aws-sdk/client-textract moment lodash axios
+
+USER root
+  RUN npm install -g @aws-sdk/client-textract
+  RUN npm install -g moment
+  RUN npm install -g lodash
+  RUN npm install -g axios
+USER node
