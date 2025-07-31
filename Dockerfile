@@ -1,12 +1,18 @@
+# Start from the official n8n image
 FROM n8nio/n8n:latest
 
-# WORKDIR /data
+# The n8n image sets the working directory to /data, so we don't need to.
 
-# RUN npm install cheerio axios moment
-
+# Switch to the root user to have permissions to install
 USER root
-  RUN npm install -g @aws-sdk/client-textract
-  RUN npm install -g moment
-  RUN npm install -g lodash
-  RUN npm install -g axios
+
+# First, copy your package.json file into the container
+COPY package.json .
+
+# Now, run npm install. It will read package.json and install the
+# packages into a local node_modules folder inside /data
+RUN npm install
+
+# IMPORTANT: Switch back to the non-privileged 'node' user
+# that n8n runs as.
 USER node
